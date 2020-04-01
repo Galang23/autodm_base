@@ -10,14 +10,13 @@ import constants
 MEDIA_ENDPOINT_URL = 'https://upload.twitter.com/1.1/media/upload.json'
 POST_TWEET_URL = 'https://api.twitter.com/1.1/statuses/update.json'
 
-
 VIDEO_FILENAME = 'path/to/video/file'
 
-oauth = OAuth1(constants.CONSUMER_KEY,
-               client_secret=constants.CONSUMER_SCRET,
-               resource_owner_key=constants.ACCESS_KEY,
-               resource_owner_secret=constants.ACCESS_SECRET)
-
+oauth = OAuth1(os.environ.get("CONSUMER_KEY"),
+               client_secret=os.environ.get("CONSUMER_SCRET"),
+               resource_owner_key=os.environ.get("ACCESS_KEY"),
+               resource_owner_secret=os.environ.get("ACCESS_SECRET")
+               )
 
 class VideoTweet(object):
 
