@@ -11,7 +11,7 @@ class Twitter:
     def __init__(self):
         print("initializing twitter....")
         self.inits = tweepy.OAuthHandler(os.environ.get("CONSUMER_KEY"), os.environ.get("CONSUMER_SCRET"))
-        self.inits.set_access_token(os.environ.get("ACCESS_KEY", os.environ.get("ACCESS_SECRET"))
+        self.inits.set_access_token(os.environ.get("ACCESS_KEY"), os.environ.get("ACCESS_SECRET"))
         self.api = tweepy.API(self.inits)
 
 
