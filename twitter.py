@@ -96,10 +96,10 @@ class Twitter:
             elif type == 'photo':
                 arr = arr[len(arr)-1]
 
-            auth = OAuth1(client_key= constants.CONSUMER_KEY,
-                          client_secret= constants.CONSUMER_SCRET,
-                          resource_owner_secret= constants.ACCESS_SECRET,
-                          resource_owner_key= constants.ACCESS_KEY)
+            auth = OAuth1(client_key= os.environ.get("CONSUMER_KEY"),
+                          client_secret= os.environ.get("CONSUMER_SCRET"),
+                          resource_owner_secret= os.environ.get("ACCESS_SECRET"),
+                          resource_owner_key= os.environ.get("ACCESS_KEY")
             r = requests.get(media_url, auth = auth)
             with open(arr, 'wb') as f:
                 f.write(r.content)
