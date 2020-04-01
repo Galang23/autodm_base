@@ -1,5 +1,5 @@
 import tweepy
-import constants
+#import constants
 import time
 import _json
 from requests_oauthlib import OAuth1
@@ -10,8 +10,8 @@ from async_upload import VideoTweet
 class Twitter:
     def __init__(self):
         print("initializing twitter....")
-        self.inits = tweepy.OAuthHandler(constants.CONSUMER_KEY, constants.CONSUMER_SCRET)
-        self.inits.set_access_token(constants.ACCESS_KEY, constants.ACCESS_SECRET)
+        self.inits = tweepy.OAuthHandler(os.environ.get("CONSUMER_KEY"), os.environ.get("CONSUMER_SCRET"))
+        self.inits.set_access_token(os.environ.get("ACCESS_KEY", os.environ.get("ACCESS_SECRET"))
         self.api = tweepy.API(self.inits)
 
 
