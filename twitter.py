@@ -100,6 +100,7 @@ class Twitter:
                           client_secret= os.environ.get("CONSUMER_SCRET"),
                           resource_owner_secret= os.environ.get("ACCESS_SECRET"),
                           resource_owner_key= os.environ.get("ACCESS_KEY")
+                         )
             r = requests.get(media_url, auth = auth)
             with open(arr, 'wb') as f:
                 f.write(r.content)
