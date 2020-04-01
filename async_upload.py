@@ -12,7 +12,7 @@ POST_TWEET_URL = 'https://api.twitter.com/1.1/statuses/update.json'
 
 VIDEO_FILENAME = 'path/to/video/file'
 
-oauth = OAuth1(os.environ.get("CONSUMER_KEY"),
+oauth = OAuth1(client_key=os.environ.get("CONSUMER_KEY"),
                client_secret=os.environ.get("CONSUMER_SCRET"),
                resource_owner_key=os.environ.get("ACCESS_KEY"),
                resource_owner_secret=os.environ.get("ACCESS_SECRET")
