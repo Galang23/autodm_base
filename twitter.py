@@ -49,7 +49,7 @@ class Twitter:
                         print("Its a video")
                         attachment = dm[x].message_create['message_data']['attachment']
                         media = dm[x].message_create['message_data']['attachment']['media']
-                        media_url = media['video_info']['variants'][1]
+                        media_url = media['video_info']['variants'][2]
                         video_url = media_url['url']
                         print("video url : " + str(video_url))
                         d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url, shorted_media_url = attachment['media']['url'], type = 'video')
