@@ -134,6 +134,60 @@ class Twitter:
                 videoTweet.upload_append()
                 videoTweet.upload_finalize()
                 videoTweet.tweet(tweet)
+                
+                # Jika media variants 0 tidak bisa, maka coba 1. Jika tidak lagi, coba 2
+                # Ini hanya temporary fix, perlu dilembutkan
+                # Tapi biasanya temporary fix itu malah jadi permanen...
+                
+                if videoTweet.check_status == False:
+                    # Ini harus dijadikan function supaya rapi
+                    print("It's a video")
+                    attachment = dm[x].message_create['message_data']['attachment']
+                    media = dm[x].message_create['message_data']['attachment']['media']
+                    media_url = media['video_info']['variants'][0]
+                    video_url = media_url['url']
+                    print("video url : " + str(video_url))
+                    d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url,
+                        shorted_media_url = attachment['media']['url'], type = 'video')
+                    dms.append(d)
+                    dms.reverse()
+                    
+                    arr = arr[len(arr)-1].split("?tag=1")
+                    arr = arr[0]
+                    
+                    r = requests.get(media_url, auth = auth)
+                    with open(arr, 'wb') as f:
+                        f.write(r.content)
+                    
+                    videoTweet = VideoTweet(arr)
+                    videoTweet.upload_init()
+                    videoTweet.upload_append()
+                    videoTweet.upload_finalize()
+                    videoTweet.tweet(tweet)
+                    if videoTweet.check_status == False:
+                        print("It's a video")
+                        attachment = dm[x].message_create['message_data']['attachment']
+                        media = dm[x].message_create['message_data']['attachment']['media']
+                        media_url = media['video_info']['variants'][0]
+                        video_url = media_url['url']
+                        print("video url : " + str(video_url))
+                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url,
+                            shorted_media_url = attachment['media']['url'], type = 'video')
+                        dms.append(d)
+                        dms.reverse()
+                        
+                        arr = arr[len(arr)-1].split("?tag=1")
+                        arr = arr[0]
+                    
+                        r = requests.get(media_url, auth = auth)
+                        with open(arr, 'wb') as f:
+                            f.write(r.content)
+                    
+                        videoTweet = VideoTweet(arr)
+                        videoTweet.upload_init()
+                        videoTweet.upload_append()
+                        videoTweet.upload_finalize()
+                        videoTweet.tweet(tweet)
             elif type == 'photo':
                 self.api.update_with_media(filename=arr, status=tweet)
             elif type =='animated_gif':
