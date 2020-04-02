@@ -105,7 +105,7 @@ class Twitter:
             arr = str(media_url).split('/')
             print(arr[len(arr)-1])
             if type == 'video':
-                arr = arr[len(arr)-1].split("?tag=1")
+                arr = arr[len(arr)-1].split()
                 arr = arr[0]
             elif type == 'photo':
                 arr = arr[len(arr)-1]
@@ -152,7 +152,7 @@ class Twitter:
                     dms.append(d)
                     dms.reverse()
                     
-                    arr = arr[len(arr)-1].split("?tag=1")
+                    arr = arr[len(arr)-1].split()
                     arr = arr[0]
                     
                     r = requests.get(media_url, auth = auth)
@@ -176,7 +176,7 @@ class Twitter:
                         dms.append(d)
                         dms.reverse()
                         
-                        arr = arr[len(arr)-1].split("?tag=1")
+                        arr = arr[len(arr)-1].split()
                         arr = arr[0]
                     
                         r = requests.get(media_url, auth = auth)
