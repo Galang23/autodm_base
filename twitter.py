@@ -40,19 +40,33 @@ class Twitter:
                     media_type = dm[x].message_create['message_data']['attachment']['media']['type']
                     print(media_type)
                     if media_type == 'photo':
-                        print("Is a photo")
+                        print("It's a photo")
                         attachment = dm[x].message_create['message_data']['attachment']
-                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = attachment['media']['media_url'], shorted_media_url = attachment['media']['url'], type = 'photo')
+                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, 
+                            media = attachment['media']['media_url'], 
+                            shorted_media_url = attachment['media']['url'], type = 'photo')
                         dms.append(d)
                         dms.reverse()
                     elif media_type == 'video':
-                        print("Its a video")
+                        print("It's a video")
                         attachment = dm[x].message_create['message_data']['attachment']
                         media = dm[x].message_create['message_data']['attachment']['media']
                         media_url = media['video_info']['variants'][0]
                         video_url = media_url['url']
                         print("video url : " + str(video_url))
-                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url, shorted_media_url = attachment['media']['url'], type = 'video')
+                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url,
+                            shorted_media_url = attachment['media']['url'], type = 'video')
+                        dms.append(d)
+                        dms.reverse()
+                    elif media_type == 'animated_gif':
+                        print("It's a GIF")
+                        attachment = dm[x].message_create['message_data']['attachment']
+                        media = dm[x].message_create['message_data']['attachment']['media']
+                        media_url = media['video_info']['variants'][0]
+                        gif_url = media_url['url']
+                        print("video url : " + str(video_url))
+                        d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = gif_url,
+                            shorted_media_url = attachment['media']['url'], type = 'animated_gif')
                         dms.append(d)
                         dms.reverse()
 
@@ -95,6 +109,9 @@ class Twitter:
                 arr = arr[0]
             elif type == 'photo':
                 arr = arr[len(arr)-1]
+            if type == 'animated_gif':
+                arr = arr[len(arr)-1].split()
+                arr = arr[0]
 
             auth = OAuth1(client_key= os.environ.get("CONSUMER_KEY"),
                           client_secret= os.environ.get("CONSUMER_SCRET"),
@@ -119,10 +136,17 @@ class Twitter:
                 videoTweet.tweet(tweet)
             elif type == 'photo':
                 self.api.update_with_media(filename=arr, status=tweet)
+            elif type =='animated_gif':
+                videoTweet = VideoTweet(arr)
+                videoTweet.upload_init()
+                videoTweet.upload_append()
+                videoTweet.upload_finalize()
+                videoTweet.tweet(tweet)
+                
             os.remove(arr)
+            
             print("Upload with media success!")
+            
         except Exception as e:
             print(e)
             pass
-
-
