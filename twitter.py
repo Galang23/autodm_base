@@ -105,7 +105,7 @@ class Twitter:
             arr = str(media_url).split('/')
             print(arr[len(arr)-1])
             if type == 'video':
-                arr = arr[len(arr)-1].split()
+                arr = arr[len(arr)-1].split(?tag=1)
                 arr = arr[0]
             elif type == 'photo':
                 arr = arr[len(arr)-1]
@@ -141,10 +141,11 @@ class Twitter:
                 
                 if videoTweet.check_status == False:
                     # Ini harus dijadikan function supaya rapi
+                    print("try 2")
                     print("It's a video")
                     attachment = dm[x].message_create['message_data']['attachment']
                     media = dm[x].message_create['message_data']['attachment']['media']
-                    media_url = media['video_info']['variants'][0]
+                    media_url = media['video_info']['variants'][1]
                     video_url = media_url['url']
                     print("video url : " + str(video_url))
                     d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url,
@@ -152,12 +153,18 @@ class Twitter:
                     dms.append(d)
                     dms.reverse()
                     
-                    arr = arr[len(arr)-1].split()
+                    arr = arr[len(arr)-1].split("?tag=1")
                     arr = arr[0]
                     
                     r = requests.get(media_url, auth = auth)
                     with open(arr, 'wb') as f:
                         f.write(r.content)
+                    
+                    if shorted_media_url in tweet:
+                        print("shorted url "+ str(shorted_media_url))
+                        tweet = tweet.replace(shorted_media_url, "")
+                    else:
+                        print("kagak ada")
                     
                     videoTweet = VideoTweet(arr)
                     videoTweet.upload_init()
@@ -165,10 +172,11 @@ class Twitter:
                     videoTweet.upload_finalize()
                     videoTweet.tweet(tweet)
                     if videoTweet.check_status == False:
+                        print("try 3")
                         print("It's a video")
                         attachment = dm[x].message_create['message_data']['attachment']
                         media = dm[x].message_create['message_data']['attachment']['media']
-                        media_url = media['video_info']['variants'][0]
+                        media_url = media['video_info']['variants'][2]
                         video_url = media_url['url']
                         print("video url : " + str(video_url))
                         d = dict(message=message, sender_id=sender_id, id=dm[x].id, media = video_url,
@@ -176,13 +184,19 @@ class Twitter:
                         dms.append(d)
                         dms.reverse()
                         
-                        arr = arr[len(arr)-1].split()
+                        arr = arr[len(arr)-1].split("?tag=1")
                         arr = arr[0]
                     
                         r = requests.get(media_url, auth = auth)
                         with open(arr, 'wb') as f:
                             f.write(r.content)
                     
+                        if shorted_media_url in tweet:
+                            print("shorted url "+ str(shorted_media_url))
+                            tweet = tweet.replace(shorted_media_url, "")
+                        else:
+                            print("kagak ada")
+                        
                         videoTweet = VideoTweet(arr)
                         videoTweet.upload_init()
                         videoTweet.upload_append()
