@@ -1,5 +1,4 @@
 import tweepy
-#import constants
 import time
 import _json
 from requests_oauthlib import OAuth1
@@ -139,7 +138,7 @@ class Twitter:
                 # Ini hanya temporary fix, perlu dilembutkan
                 # Tapi biasanya temporary fix itu malah jadi permanen...
                 
-                if videoTweet.check_status == False:
+                if videoTweet.check_status() == False:
                     # Ini harus dijadikan function supaya rapi
                     print("try 2")
                     print("It's a video")
@@ -171,7 +170,7 @@ class Twitter:
                     videoTweet.upload_append()
                     videoTweet.upload_finalize()
                     videoTweet.tweet(tweet)
-                    if videoTweet.check_status == False:
+                    if videoTweet.check_status() == False:
                         print("try 3")
                         print("It's a video")
                         attachment = dm[x].message_create['message_data']['attachment']
