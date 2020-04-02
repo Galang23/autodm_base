@@ -1,11 +1,9 @@
 import os
 import sys
 import time
-
 import json
 import requests
 from requests_oauthlib import OAuth1
-import constants
 
 MEDIA_ENDPOINT_URL = 'https://upload.twitter.com/1.1/media/upload.json'
 POST_TWEET_URL = 'https://api.twitter.com/1.1/statuses/update.json'
@@ -109,7 +107,8 @@ class VideoTweet(object):
             return
 
         if state == u'failed':
-            sys.exit(0)
+            return False
+            #sys.exit(0)
 
         check_after_secs = self.processing_info['check_after_secs']
 
