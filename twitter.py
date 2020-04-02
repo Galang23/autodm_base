@@ -105,7 +105,7 @@ class Twitter:
             arr = str(media_url).split('/')
             print(arr[len(arr)-1])
             if type == 'video':
-                arr = arr[len(arr)-1].split(?tag=1)
+                arr = arr[len(arr)-1].split("?tag=1")
                 arr = arr[0]
             elif type == 'photo':
                 arr = arr[len(arr)-1]
