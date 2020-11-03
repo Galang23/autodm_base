@@ -29,7 +29,8 @@ def start():
                                 print("DM will be posted with media")
                                 print(dms[i]['shorted_media_url'])
                                 tw.post_tweet_with_media(message, dms[i]['media'],dms[i]['shorted_media_url'], dms[i]['type'])
-                                tw.delete_dm(id)
+                                #tw.delete_dm(id)
+                                print("Gak dulu")
                         else:
                             print("DM deleted because its empty..") 
                             #tw.delete_dm(id)
@@ -45,7 +46,7 @@ def start():
             print("Direct message is empty...")
             dms = tw.read_dm()
             if len(dms) is 0:
-                time.sleep(3000)
+                time.sleep(60)
 
 if __name__ == "__main__":
     start()
