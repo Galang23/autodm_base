@@ -17,7 +17,7 @@ def start():
                 id = dms[i]['id']
 
                 if len(message) is not 0 and len(message) < 280:
-                    if "mfn!" in message:
+                    if "mfn!" in message.lower():
                         #Dikomentari biar tetep ada mfn! trigger
                         #message = message.replace("mfn!", "")
                         if len(message) is not 0:
