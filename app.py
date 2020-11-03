@@ -25,13 +25,13 @@ def start():
                                 print("DM will be posted")
                                 tw.post_tweet(message)
                                 #tw.delete_dm(id)
-                                print("Gak dihapus")
+                                #print("Gak dihapus")
                             else:
                                 print("DM will be posted with media")
                                 print(dms[i]['shorted_media_url'])
                                 tw.post_tweet_with_media(message, dms[i]['media'],dms[i]['shorted_media_url'], dms[i]['type'])
-                                #tw.delete_dm(id)
-                                print("Gak dihapus")
+                                tw.delete_dm(id)
+                                #print("Gak dihapus")
                         else:
                             print("DM deleted because its empty..") 
                             #tw.delete_dm(id)
